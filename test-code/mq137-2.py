@@ -2,6 +2,8 @@ import time
 import math
 import Adafruit_ADS1x15
 
+
+# Code for MQ137 calibration test
 # ADC Configuration
 adc = Adafruit_ADS1x15.ADS1115()
 GAIN = 1
