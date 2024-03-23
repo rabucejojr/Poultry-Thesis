@@ -1,23 +1,27 @@
 import requests
 import Adafruit_DHT
 import time
+import math
 import Adafruit_ADS1x15
 import RPi.GPIO as GPIO
 
 # Global Variables
 global temp, humid, nh3
 
-# MQ137 Configuration
+# ADC Configuration
 adc = Adafruit_ADS1x15.ADS1115()
-
-# MQ137 Constants
 GAIN = 1
-V_RL = 0.1  # Sensor output voltage in clean air
-Sensitivity = 1.0  # Sensor sensitivity in PPM/V
+
+# MQ Sensor Constants
+RL = 47  # The value of resistor RL is 47K
+m = -0.263  # Enter calculated Slope
+b = 0.42  # Enter calculated intercept
+Ro = 20  # Enter found Ro value
+MQ_sensor = 0  # Sensor is connected to A0 on ADS1115
 
 # DHT22 Pin Configuration
-# sensor = Adafruit_DHT.DHT11
-sensor = Adafruit_DHT.DHT22
+sensor = Adafruit_DHT.DHT11
+# sensor = Adafruit_DHT.DHT22
 pin = 27
 
 # Relay Pin Configurations
@@ -51,15 +55,10 @@ def dht11():
     return temperature, humidity
 
 
-def mq137():
-    value = adc.read_adc(0, gain=GAIN)
-    value = value * (4.09 / 32767.0)
-    ppm = (value - V_RL) / Sensitivity
-    ppm = nh3
-    print("value:", value)
-    print("ppm:", ppm)
-    print("Ammonia concentration:", ppm, "PPM")
-    value = round(float(ppm), 2)
+def mq137(VRL):
+    Rs = ((5.0 * RL) / VRL) - RL  # Calculate Rs value
+    ratio = Rs / Ro  # Calculate ratio Rs/Ro
+    ppm = pow(10, ((math.log10(ratio) - b) / m))  # Calculate ppm
     return ppm
 
 
@@ -93,15 +92,18 @@ def post_data(api, data, label):
 def main():
     while True:
         temperature, humidity = dht11()
-        #         ammonia = mq137()
+        value = adc.read_adc(MQ_sensor, gain=GAIN)
+        VRL = value * (5.0 / 32767.0)
+        ammonia = mq137(VRL)
         if temperature is not None and humidity is not None:
             print("Temperature:", temperature)
             print("Humidity:", humidity)
+            print("Ammonia:", ammonia)
             post_data(api_temp, temperature, "Temperature")
             post_data(api_humidity, humidity, "Humidity")
+            post_data(api_nh3, ammonia, "Ammonia")
             print("=====DONE=====")
-            # post_data(api_nh3, ammonia, 'Ammonia')
-            time.sleep(200)
+            time.sleep(5)
             # if temperature <= 32 and ammonia >= 25:
             #     relay(1, 1)
             #     time.sleep(5)
