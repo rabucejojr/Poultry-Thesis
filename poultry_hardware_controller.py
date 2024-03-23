@@ -15,7 +15,8 @@ GAIN = 1
 V_RL = 0.1  # Sensor output voltage in clean air
 Sensitivity = 1.0  # Sensor sensitivity in PPM/V
 
-# DHT11 Pin Configuration
+# DHT22 Pin Configuration
+# sensor = Adafruit_DHT.DHT11
 sensor = Adafruit_DHT.DHT22
 pin = 27
 
@@ -100,7 +101,7 @@ def main():
             post_data(api_humidity, humidity, "Humidity")
             print("=====DONE=====")
             # post_data(api_nh3, ammonia, 'Ammonia')
-            time.sleep(5000)
+            time.sleep(200)
             # if temperature <= 32 and ammonia >= 25:
             #     relay(1, 1)
             #     time.sleep(5)
