@@ -16,7 +16,7 @@ V_RL = 0.1  # Sensor output voltage in clean air
 Sensitivity = 1.0  # Sensor sensitivity in PPM/V
 
 # DHT11 Pin Configuration
-sensor = Adafruit_DHT.DHT11
+sensor = Adafruit_DHT.DHT22
 pin = 27
 
 # Relay Pin Configurations
