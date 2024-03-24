@@ -89,6 +89,11 @@ def main():
             print("-" * 20)
             time.sleep(300)  # Reread after 5 minutes
             # Other IoT code goes here ..
+            # if sensor reading are above set threshhold
+            # autofeeder is executed
+            # egg counter/detection is always activate
+            # even if threshhold aren't met
+            # to track egg count
 
 
 if __name__ == "__main__":
