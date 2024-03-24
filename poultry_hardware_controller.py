@@ -34,6 +34,7 @@ api_temp = "https://poultry-backend.vercel.app/api/temperature"
 api_humidity = "https://poultry-backend.vercel.app/api/humidity"
 api_nh3 = "https://poultry-backend.vercel.app/api/ammonia"
 
+
 def dht22():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
     temperature = temperature * (9 / 5) + 32
@@ -42,11 +43,13 @@ def dht22():
     humidity = float(humidity)
     return temperature, humidity
 
+
 def mq137(VRL):
     Rs = ((5.0 * RL) / VRL) - RL  # Calculate Rs value
     ratio = Rs / Ro  # Calculate ratio Rs/Ro
     ppm = pow(10, ((math.log10(ratio) - b) / m))  # Calculate ppm
     return ppm
+
 
 def set_angle(angle):
     duty = angle / 18 + 2
@@ -58,6 +61,7 @@ def set_angle(angle):
     GPIO.output(servo_pin, False)
     pwm.ChangeDutyCycle(0)
 
+
 def post_data(api, data, label):
     json_data = {"value": data}
     response = requests.post(api, json=json_data)
@@ -66,23 +70,24 @@ def post_data(api, data, label):
     else:
         print("Failed to send data to API:", response.text)
 
+
 # Main Loop Execution
 def main():
     while True:
         temperature, humidity = dht22()
-        value = adc.read_adc(MQ_sensor, gain=GAIN) # MQ137 adc reading
+        value = adc.read_adc(MQ_sensor, gain=GAIN)  # MQ137 adc reading
         VRL = value * (5.0 / 32767.0)
-        ammonia = mq137(VRL) 
+        ammonia = mq137(VRL)
         if temperature is not None and humidity is not None:
             print("Temperature:", temperature)
             print("Humidity:", humidity)
-            print("Ammonia:", round(ammonia,2))
+            print("Ammonia:", round(ammonia, 2))
             # Post sensor readin to api
             post_data(api_temp, temperature, "Temperature")
             post_data(api_humidity, humidity, "Humidity")
             post_data(api_nh3, ammonia, "Ammonia")
-            print('-'* 20)
-            time.sleep(300) # Reread after 5 minutes
+            print("-" * 20)
+            time.sleep(300)  # Reread after 5 minutes
             # Other IoT code goes here ..
 
 
