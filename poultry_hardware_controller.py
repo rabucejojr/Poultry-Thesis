@@ -82,6 +82,7 @@ def main():
             print("Temperature:", temperature)
             print("Humidity:", humidity)
             print("Ammonia:", round(ammonia,2))
+            # Post sensor readin to api
             post_data(api_temp, temperature, "Temperature")
             post_data(api_humidity, humidity, "Humidity")
             post_data(api_nh3, ammonia, "Ammonia")
