@@ -87,7 +87,7 @@ def main():
             post_data(api_humidity, humidity, "Humidity")
             post_data(api_nh3, ammonia, "Ammonia")
             print('-'* 20)
-            time.sleep(5)
+            time.sleep(300) # Reread after 5 minutes
             # Other IoT code goes here ..
 
 
