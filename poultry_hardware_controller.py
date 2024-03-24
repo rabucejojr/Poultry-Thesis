@@ -20,8 +20,8 @@ Ro = 20  # Enter found Ro value
 MQ_sensor = 0  # Sensor is connected to A0 on ADS1115
 
 # DHT22 Pin Configuration
-sensor = Adafruit_DHT.DHT11
-# sensor = Adafruit_DHT.DHT22
+sensor = Adafruit_DHT.DHT22
+# sensor = Adafruit_DHT.DHT11
 pin = 27
 
 # Relay Pin Configurations
@@ -39,12 +39,12 @@ pwm = GPIO.PWM(servo_pin, 50)
 
 
 # API URL FOR BACKEND POST
-api_temp = "https://piggery-backend.vercel.app/api/temperature"
-api_humidity = "https://piggery-backend.vercel.app/api/humidity"
-api_nh3 = "https://piggery-backend.vercel.app/api/ammonia"
+api_temp = "https://poultry-backend.vercel.app/api/temperature"
+api_humidity = "https://poultry-backend.vercel.app/api/humidity"
+api_nh3 = "https://poultry-backend.vercel.app/api/ammonia"
 
 
-def dht11():
+def dht22():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
     temperature = temperature * (9 / 5) + 32
     # Convert values to float
@@ -91,7 +91,7 @@ def post_data(api, data, label):
 # Main Loop Execution
 def main():
     while True:
-        temperature, humidity = dht11()
+        temperature, humidity = dht22()
         value = adc.read_adc(MQ_sensor, gain=GAIN)
         VRL = value * (5.0 / 32767.0)
         ammonia = mq137(VRL)
