@@ -5,9 +5,6 @@ import math
 import Adafruit_ADS1x15
 import RPi.GPIO as GPIO
 
-# Global Variables
-global temp, humid, nh3
-
 # ADC Configuration
 adc = Adafruit_ADS1x15.ADS1115()
 GAIN = 1
@@ -43,8 +40,6 @@ def dht22():
     # Convert values to float
     temperature = float(temperature)
     humidity = float(humidity)
-    #     temperature = temp
-    #     humidity = humid
     return temperature, humidity
 
 def mq137(VRL):
