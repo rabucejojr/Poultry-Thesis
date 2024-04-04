@@ -18,20 +18,20 @@ GPIO.setmode(GPIO.BOARD)
 # Establish Pins in software
 GPIO.setup(DIR, GPIO.OUT)
 GPIO.setup(STEP, GPIO.OUT)
-GPIO.setup(servoPIN, GPIO.OUT)
-p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
-p.start(2.5)  					# Initialization
+# GPIO.setup(servoPIN, GPIO.OUT)
+# p = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
+# p.start(2.5)  					# Initialization
 
 # Set the first direction you want it to spin
 GPIO.output(DIR, CW)
 try:
 	# Run forever.
 	while True:
-		# SERVO
-		p.ChangeDutyCycle(5)
-		sleep(3)
-		p.ChangeDutyCycle(12.5)
-		sleep(3)
+# 		# SERVO
+# 		p.ChangeDutyCycle(5)
+# 		sleep(3)
+# 		p.ChangeDutyCycle(12.5)
+# 		sleep(3)
 		"""Change Direction: Changing direction requires time to switch. The
 		time is dictated by the stepper motor and controller. """
 		sleep(1.0)
