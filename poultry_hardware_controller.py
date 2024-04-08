@@ -51,15 +51,16 @@ def mq137(VRL):
     return ppm
 
 
-def set_angle(angle):
-    duty = angle / 18 + 2
+def set_angle(angle,delayOpen,delayClose):
+    duty = (angle / 18) + 2.5
     # open to x degrees
     GPIO.output(servo_pin, True)
     pwm.ChangeDutyCycle(duty)
-    time.sleep(3)
+    time.sleep(delayOpen)
     # open to x degrees
     GPIO.output(servo_pin, False)
     pwm.ChangeDutyCycle(0)
+    time.sleep(delayClose)
 
 
 def post_data(api, data, label):
@@ -88,9 +89,9 @@ def main():
             post_data(api_nh3, ammonia, "Ammonia")
             print("-" * 20)
             
-            # #autofeeder adjustments
-            # if temperature >=26:
-                
+            #autofeeder adjustments
+            if temperature >=26:
+                set_angle(90,2,2)
             
             time.sleep(300)  # Reread after 5 minutes
             # Other IoT code goes here ..
