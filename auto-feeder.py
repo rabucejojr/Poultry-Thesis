@@ -34,10 +34,11 @@ try:
 	# Run forever.
 	while True:
 # 		# SERVO
-		#open 0 deg.
+		#open 0 degrees
 		duty_cycle = angle_to_duty_cycle(0)
 		p.ChangeDutyCycle(duty_cycle)
 		sleep(4)
+  		#open 90 degrees
 		duty_cycle = angle_to_duty_cycle(90)
 		p.ChangeDutyCycle(duty_cycle)
 		sleep(4)
