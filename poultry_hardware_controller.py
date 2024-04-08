@@ -25,7 +25,7 @@ pin = 27
 
 # Servo Pin Configurations
 GPIO.setmode(GPIO.BCM)
-servo_pin = 17
+servo_pin = 5
 GPIO.setup(servo_pin, GPIO.OUT)
 # Create a PWM object at 50Hz (20ms period)
 pwm = GPIO.PWM(servo_pin, 50)
@@ -57,15 +57,21 @@ def mq137(VRL):
     return ppm
 
 
-def set_angle(angle):
-    duty = angle / 18 + 2
-    # open valve
+def set_angle(angle,delayOpen,delayClose):
+    duty = (angle / 18) + 2.5
+    # open to x degrees
     GPIO.output(servo_pin, True)
     pwm.ChangeDutyCycle(duty)
+<<<<<<< HEAD
     sleep(3)
     # close valve
+=======
+    time.sleep(delayOpen)
+    # open to x degrees
+>>>>>>> 1ed3cc5ea943a5c6ec23389f68e7728b7bf90784
     GPIO.output(servo_pin, False)
     pwm.ChangeDutyCycle(0)
+    time.sleep(delayClose)
 
     
 
@@ -100,10 +106,25 @@ def main():
             post_data(api_humidity, humidity, "Humidity")
             post_data(api_nh3, ammonia, "Ammonia")
             print("-" * 20)
+<<<<<<< HEAD
             if temperature >= 32:
                 fan_exhaust(delay)
             sleep(30
                 
+=======
+            
+            #autofeeder adjustments
+            if temperature >=26:
+                set_angle(90,2,2) # opens 90 degrees, opens 2 secs, closes after 2 secs
+            
+            time.sleep(300)  # Reread after 5 minutes
+            # Other IoT code goes here ..
+            # if sensor reading are above set threshhold
+            # autofeeder is executed
+            # egg counter/detection is always activate
+            # even if threshhold aren't met
+            # to track egg count
+>>>>>>> 1ed3cc5ea943a5c6ec23389f68e7728b7bf90784
 
 
 if __name__ == "__main__":
