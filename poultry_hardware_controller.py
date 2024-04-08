@@ -91,7 +91,7 @@ def main():
             
             #autofeeder adjustments
             if temperature >=26:
-                set_angle(90,2,2)
+                set_angle(90,2,2) # opens 90 degrees, opens 2 secs, closes after 2 secs
             
             time.sleep(300)  # Reread after 5 minutes
             # Other IoT code goes here ..
