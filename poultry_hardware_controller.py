@@ -1,9 +1,10 @@
 import requests
 import Adafruit_DHT
-import time
+from time import sleep
 import math
 import Adafruit_ADS1x15
 import RPi.GPIO as GPIO
+from gpiozero import OutputDevice
 
 # ADC Configuration
 adc = Adafruit_ADS1x15.ADS1115()
@@ -28,6 +29,11 @@ servo_pin = 17
 GPIO.setup(servo_pin, GPIO.OUT)
 # Create a PWM object at 50Hz (20ms period)
 pwm = GPIO.PWM(servo_pin, 50)
+
+#Servo to trigger fan for ventilation
+# Relay Pin Configurations
+pin= 17
+relay= OutputDevice(pin1,active_high=False, initial_value=False)
 
 # API URL FOR BACKEND POST
 api_temp = "https://poultry-backend.vercel.app/api/temperature"
@@ -56,11 +62,18 @@ def set_angle(angle):
     # open valve
     GPIO.output(servo_pin, True)
     pwm.ChangeDutyCycle(duty)
-    time.sleep(3)
+    sleep(3)
     # close valve
     GPIO.output(servo_pin, False)
     pwm.ChangeDutyCycle(0)
 
+    
+
+def fan_exhaust(delay):  # execute relays activate water pump ot water foucets
+    relay.on()
+    sleep(delay)
+    relay.off()
+    sleep(delay)
 
 def post_data(api, data, label):
     json_data = {"value": data}
@@ -87,13 +100,10 @@ def main():
             post_data(api_humidity, humidity, "Humidity")
             post_data(api_nh3, ammonia, "Ammonia")
             print("-" * 20)
-            time.sleep(300)  # Reread after 5 minutes
-            # Other IoT code goes here ..
-            # if sensor reading are above set threshhold
-            # autofeeder is executed
-            # egg counter/detection is always activate
-            # even if threshhold aren't met
-            # to track egg count
+            if temperature >= 32:
+                fan_exhaust(delay)
+            sleep(30
+                
 
 
 if __name__ == "__main__":
