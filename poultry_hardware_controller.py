@@ -24,7 +24,7 @@ pin = 27
 
 # Servo Pin Configurations
 GPIO.setmode(GPIO.BCM)
-servo_pin = 17
+servo_pin = 5
 GPIO.setup(servo_pin, GPIO.OUT)
 # Create a PWM object at 50Hz (20ms period)
 pwm = GPIO.PWM(servo_pin, 50)
@@ -53,11 +53,11 @@ def mq137(VRL):
 
 def set_angle(angle):
     duty = angle / 18 + 2
-    # open valve
+    # open to x degrees
     GPIO.output(servo_pin, True)
     pwm.ChangeDutyCycle(duty)
     time.sleep(3)
-    # close valve
+    # open to x degrees
     GPIO.output(servo_pin, False)
     pwm.ChangeDutyCycle(0)
 
@@ -87,6 +87,11 @@ def main():
             post_data(api_humidity, humidity, "Humidity")
             post_data(api_nh3, ammonia, "Ammonia")
             print("-" * 20)
+            
+            # #autofeeder adjustments
+            # if temperature >=26:
+                
+            
             time.sleep(300)  # Reread after 5 minutes
             # Other IoT code goes here ..
             # if sensor reading are above set threshhold
