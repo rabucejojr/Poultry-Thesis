@@ -13,8 +13,8 @@ Use the following command:
 For autofeeder function:
 
 ```bash
-* 8 * * * python3 /home/admin/Desktop/Poultry-Thesis/auto-feeder.py
-* 13 * * * python3 /home/admin/Desktop/Poultry-Thesis/auto-feeder.py
+0 8 * * * python3 /home/admin/Desktop/Poultry-Thesis/auto-feeder.py
+0 13 * * * python3 /home/admin/Desktop/Poultry-Thesis/auto-feeder.py
 ```
 
 ## List Existing Cron Jobs
