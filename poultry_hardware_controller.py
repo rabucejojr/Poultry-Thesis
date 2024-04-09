@@ -22,7 +22,6 @@ sensor = Adafruit_DHT.DHT22
 # sensor = Adafruit_DHT.DHT11
 pin = 27
 
-
 # Servo Pin Configurations
 GPIO.setmode(GPIO.BCM)
 servo_pin = 5
@@ -40,7 +39,6 @@ api_temp = "https://poultry-backend.vercel.app/api/temperature"
 api_humidity = "https://poultry-backend.vercel.app/api/humidity"
 api_nh3 = "https://poultry-backend.vercel.app/api/ammonia"
 
-
 def dht22():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
     temperature = temperature * (9 / 5) + 32
@@ -49,33 +47,26 @@ def dht22():
     humidity = float(humidity)
     return temperature, humidity
 
-
 def mq137(VRL):
     Rs = ((5.0 * RL) / VRL) - RL  # Calculate Rs value
     ratio = Rs / Ro  # Calculate ratio Rs/Ro
     ppm = pow(10, ((math.log10(ratio) - b) / m))  # Calculate ppm
     return ppm
 
-
-def set_angle(angle,delayOpen,delayClose):
+def foodValve(angle,delayOpen,delayClose):
     duty = (angle / 18) + 2.5
     # open to x degrees
     GPIO.output(servo_pin, True)
     pwm.ChangeDutyCycle(duty)
-<<<<<<< HEAD
     sleep(3)
     # close valve
-=======
-    time.sleep(delayOpen)
+    sleep(delayOpen)
     # open to x degrees
->>>>>>> 1ed3cc5ea943a5c6ec23389f68e7728b7bf90784
     GPIO.output(servo_pin, False)
     pwm.ChangeDutyCycle(0)
-    time.sleep(delayClose)
+    sleep(delayClose)
 
-    
-
-def fan_exhaust(delay):  # execute relays activate water pump ot water foucets
+def fanRelay(delay):  # execute relays activate water pump ot water foucets
     relay.on()
     sleep(delay)
     relay.off()
@@ -106,25 +97,17 @@ def main():
             post_data(api_humidity, humidity, "Humidity")
             post_data(api_nh3, ammonia, "Ammonia")
             print("-" * 20)
-<<<<<<< HEAD
+            #check temperature and automate relay with fan connected
             if temperature >= 32:
-                fan_exhaust(delay)
-            sleep(30
-                
-=======
-            
-            #autofeeder adjustments
-            if temperature >=26:
-                set_angle(90,2,2) # opens 90 degrees, opens 2 secs, closes after 2 secs
-            
-            time.sleep(300)  # Reread after 5 minutes
+                fanRelay(5)
+                foodValve(90,2,2) # opens 90 degrees, opens 2 secs, closes after 2 secs
+            sleep(300)  # Reread after 5 minutes, 60 secs. x 5 mins.
             # Other IoT code goes here ..
             # if sensor reading are above set threshhold
             # autofeeder is executed
             # egg counter/detection is always activate
             # even if threshhold aren't met
             # to track egg count
->>>>>>> 1ed3cc5ea943a5c6ec23389f68e7728b7bf90784
 
 
 if __name__ == "__main__":
