@@ -10,6 +10,13 @@ Use the following command:
 @reboot python3 /home/admin/Desktop/Poultry-Thesis/poultry_hardware_controller.py
 ```
 
+For autofeeder function:
+
+```bash
+* 8 * * * python3 /home/admin/Desktop/Poultry-Thesis/auto-feeder.py
+* 13 * * * python3 /home/admin/Desktop/Poultry-Thesis/auto-feeder.py
+```
+
 ## List Existing Cron Jobs
 
 To view a list of existing cron jobs, use the following command:
