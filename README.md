@@ -18,9 +18,12 @@ To execute file every 5 minutes and the delay be removed on the code:
 
 
 For autofeeder function:
-
+Every 8am
 ```bash
 0 8 * * * python3 /home/admin/Desktop/Poultry-Thesis/auto-feeder.py
+```
+Every 1pm
+```bash
 0 13 * * * python3 /home/admin/Desktop/Poultry-Thesis/auto-feeder.py
 ```
 
