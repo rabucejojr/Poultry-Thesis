@@ -80,6 +80,8 @@ def post_data(api, data, label):
     else:
         print("Failed to send data to API:", response.text)
 
+def egg_counter():
+    pass
 
 # Main Loop Execution
 def main():
