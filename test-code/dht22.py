@@ -2,7 +2,7 @@ import Adafruit_DHT
 import time
 
 # Set the sensor type: DHT11, DHT22, or AM2302
-SENSOR = Adafruit_DHT.DHT11
+SENSOR = Adafruit_DHT.DHT22
 
 # Set the GPIO pin where the sensor is connected
 PIN = 27
