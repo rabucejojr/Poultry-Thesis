@@ -32,7 +32,7 @@ pwm = GPIO.PWM(servo_pin, 50)
 #Servo to trigger fan for ventilation
 # Relay Pin Configurations
 pin= 17
-relay= OutputDevice(pin1,active_high=False, initial_value=False)
+relay= OutputDevice(pin,active_high=False, initial_value=False)
 
 # API URL FOR BACKEND POST
 api_temp = "https://poultry-backend.vercel.app/api/temperature"
