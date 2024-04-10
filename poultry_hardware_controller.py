@@ -1,9 +1,10 @@
 import requests
 import Adafruit_DHT
-import time
+from time import sleep
 import math
 import Adafruit_ADS1x15
 import RPi.GPIO as GPIO
+from gpiozero import OutputDevice
 
 # ADC Configuration
 adc = Adafruit_ADS1x15.ADS1115()
@@ -21,19 +22,22 @@ sensor = Adafruit_DHT.DHT22
 # sensor = Adafruit_DHT.DHT11
 pin = 27
 
-
 # Servo Pin Configurations
 GPIO.setmode(GPIO.BCM)
-servo_pin = 17
+servo_pin = 5
 GPIO.setup(servo_pin, GPIO.OUT)
 # Create a PWM object at 50Hz (20ms period)
 pwm = GPIO.PWM(servo_pin, 50)
+
+#Servo to trigger fan for ventilation
+# Relay Pin Configurations
+pin= 17
+relay= OutputDevice(pin,active_high=False, initial_value=False)
 
 # API URL FOR BACKEND POST
 api_temp = "https://poultry-backend.vercel.app/api/temperature"
 api_humidity = "https://poultry-backend.vercel.app/api/humidity"
 api_nh3 = "https://poultry-backend.vercel.app/api/ammonia"
-
 
 def dht22():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
@@ -43,24 +47,30 @@ def dht22():
     humidity = float(humidity)
     return temperature, humidity
 
-
 def mq137(VRL):
     Rs = ((5.0 * RL) / VRL) - RL  # Calculate Rs value
     ratio = Rs / Ro  # Calculate ratio Rs/Ro
     ppm = pow(10, ((math.log10(ratio) - b) / m))  # Calculate ppm
     return ppm
 
-
-def set_angle(angle):
-    duty = angle / 18 + 2
-    # open valve
+def foodValve(angle,delayOpen,delayClose):
+    duty = (angle / 18) + 2.5
+    # open to x degrees
     GPIO.output(servo_pin, True)
     pwm.ChangeDutyCycle(duty)
-    time.sleep(3)
+    sleep(3)
     # close valve
+    sleep(delayOpen)
+    # open to x degrees
     GPIO.output(servo_pin, False)
     pwm.ChangeDutyCycle(0)
+    sleep(delayClose)
 
+def fanRelay(delay):  # execute relays activate water pump ot water foucets
+    relay.on()
+    sleep(delay)
+    relay.off()
+    sleep(delay)
 
 def post_data(api, data, label):
     json_data = {"value": data}
@@ -70,6 +80,8 @@ def post_data(api, data, label):
     else:
         print("Failed to send data to API:", response.text)
 
+def egg_counter():
+    pass
 
 # Main Loop Execution
 def main():
@@ -87,7 +99,11 @@ def main():
             post_data(api_humidity, humidity, "Humidity")
             post_data(api_nh3, ammonia, "Ammonia")
             print("-" * 20)
-            time.sleep(300)  # Reread after 5 minutes
+            #check temperature and automate relay with fan connected
+            if temperature >= 32:
+                fanRelay(5)
+                foodValve(90,2,2) # opens 90 degrees, opens 2 secs, closes after 2 secs
+            sleep(300)  # Reread after 5 minutes, 60 secs. x 5 mins.
             # Other IoT code goes here ..
             # if sensor reading are above set threshhold
             # autofeeder is executed
