@@ -11,7 +11,7 @@ STEP = 8
 # 0/1 used to signify clockwise or counterclockwise.
 CW = 1
 CCW = 0
-servoPIN = 37 # pin sequence number 37 as per datasheet pinout
+servoPIN = 29 # pin sequence number 29 as per datasheet pinout
 # Setup pin layout on PI
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
