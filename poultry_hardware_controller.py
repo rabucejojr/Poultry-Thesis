@@ -66,7 +66,7 @@ def foodValve(angle,delayOpen,delayClose):
     pwm.ChangeDutyCycle(0)
     sleep(delayClose)
 
-def fanRelay(delay):  # execute relays activate water pump ot water foucets
+def fanRelay(delay):  # execute relays activate ceiling fan for ventilation
     relay.on()
     sleep(delay)
     relay.off()
@@ -100,7 +100,7 @@ def main():
             post_data(api_nh3, ammonia, "Ammonia")
             print("-" * 20)
             #check temperature and automate relay with fan connected
-            if temperature >= 32:
+            if temperature >= 32: #if temperature exceeds 32 degrees, this code executes
                 fanRelay(5)
                 foodValve(90,2,2) # opens 90 degrees, opens 2 secs, closes after 2 secs
             sleep(300)  # Reread after 5 minutes, 60 secs. x 5 mins.
