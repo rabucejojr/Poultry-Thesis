@@ -1,6 +1,14 @@
 # Code to be executed via CRON
 # Dedicated for Servo and Stepper Motor Only
 # reference: https://danielwilczak101.medium.com/control-a-stepper-motor-using-python-and-a-raspberry-pi-11f67d5a8d6d
+
+# crontab for scheduled feeder
+# crontab for 8AM activation: 0 8 * * * /home/admin/Desktop/Poultry-Thesis/auto-feeder.py
+# crontab for 1PM activation: 0 13 * * * /home/admin/Desktop/Poultry-Thesis/auto-feeder.py
+
+# crontab for main controller to read and submit data to api and will run every boot
+# @reboot python3 /home/admin/Desktop/thesis_v1/piggery_hardware_controller.py
+
 import RPi.GPIO as GPIO
 from time import sleep
 
