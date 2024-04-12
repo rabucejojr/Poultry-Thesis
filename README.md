@@ -11,12 +11,6 @@ To execute file every boot and with 5 minutes interval present in the code:
 @reboot python3 /home/admin/Desktop/Poultry-Thesis/poultry_hardware_controller.py
 ```
 
-To execute file every 5 minutes and the delay be removed on the code:
-```bash
-*/5 * * * * python3 /home/admin/Desktop/Poultry-Thesis/poultry_hardware_controller.py
-```
-
-
 For autofeeder function:
 Every 8am
 ```bash
