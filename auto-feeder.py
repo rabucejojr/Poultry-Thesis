@@ -38,7 +38,10 @@ def angle_to_duty_cycle(angle):
  
 # Set the first direction you want it to spin
 GPIO.output(DIR, CW)
-while True:
+
+stepper_status = True
+
+while stepper_status:
 	try:
 		# SERVO
 		#open 0 degrees
@@ -52,20 +55,16 @@ while True:
 
 		"""Change Direction: Changing direction requires time to switch. The
 		time is dictated by the stepper motor and controller. """
-		# Esablish the direction you want to go
-		GPIO.output(DIR,CW)
+		GPIO.output(DIR,CW) # counterclockwise direction
 		# Run for 200 steps. This will change based on how you set you controller
 		for x in range(200):
-
-			# Set one coil winding to high
-			GPIO.output(STEP,GPIO.HIGH)
-			# Allow it to get there.
+			GPIO.output(STEP,GPIO.HIGH) # Set one coil winding to high
 			sleep(.005) # Dictates how fast stepper motor will run
-			# Set coil winding to low
-			GPIO.output(STEP,GPIO.LOW)
-			sleep(.005) # Dictates how fast stepper motor will run
-
-# Once finished clean everything up
+			GPIO.output(STEP,GPIO.LOW) # Set coil winding to low
+			sleep(.005) # Dictates how fast stepper motor will run 
+	# Stop stepper motor
 	except KeyboardInterrupt:
-		p.stop() #stop servo
-		GPIO.cleanup()
+		stepper_status =False
+
+p.stop() #stop servo
+GPIO.cleanup()
