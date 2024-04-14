@@ -44,4 +44,4 @@ if __name__ == '__main__':
             print("Distance: %.1f cm" % dist)
             time.sleep(1)
     except KeyboardInterrupt:
-       
+        GPIO.cleanup()
