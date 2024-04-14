@@ -1,19 +1,28 @@
 import RPi.GPIO as GPIO
 import time
 
-IR_PIN = 17
-motion_count = 0
-
+# Set up GPIO using BCM numbering
 GPIO.setmode(GPIO.BCM)
+
+# Define the GPIO pin connected to the IR sensor
+IR_PIN = 18
+
+# Set up the GPIO pin as input
 GPIO.setup(IR_PIN, GPIO.IN)
 
 try:
     while True:
-        if GPIO.input(IR_PIN):
-            motion_count += 1
-            print("Motion detected! Count:", motion_count)
+        # Read the state of the IR sensor
+        ir_state = GPIO.input(IR_PIN)
+
+        if ir_state == GPIO.HIGH:
+            print("Object detected")
         else:
-            print("No motion detected.")
-        time.sleep(0.1)  # Adjust as needed
+            print("No object detected")
+
+        # Add a small delay to avoid spamming the console
+        time.sleep(0.1)
+
 except KeyboardInterrupt:
+    # Clean up GPIO on keyboard interrupt
     GPIO.cleanup()
