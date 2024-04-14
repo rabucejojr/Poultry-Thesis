@@ -21,7 +21,10 @@ def measure_distance():
     GPIO.output(TRIG_PIN, True)
     time.sleep(0.00001)
     GPIO.output(TRIG_PIN, False)
-
+    
+    pulse_start = time.time()
+    pulse_end = time.time()
+    
     # Measure the pulse duration on the echo pin
     while GPIO.input(ECHO_PIN) == 0:
         pulse_start = time.time()
