@@ -2,8 +2,8 @@ import RPi.GPIO as GPIO
 import time
 
 # Define GPIO pins for ultrasonic sensor
-TRIG_PIN = 19
-ECHO_PIN = 21
+TRIG_PIN = 29
+ECHO_PIN = 31
 
 # Initialize GPIO
 GPIO.setwarnings(False)
