@@ -6,6 +6,7 @@ TRIG_PIN = 19
 ECHO_PIN = 21
 
 # Initialize GPIO
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(TRIG_PIN, GPIO.OUT)
 GPIO.setup(ECHO_PIN, GPIO.IN)
