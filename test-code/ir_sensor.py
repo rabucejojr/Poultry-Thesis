@@ -15,7 +15,7 @@ try:
         # Read the state of the IR sensor
         ir_state = GPIO.input(IR_PIN)
 
-        if ir_state == GPIO.HIGH:
+        if ir_state == True:
             print("Object detected")
         else:
             print("No object detected")
