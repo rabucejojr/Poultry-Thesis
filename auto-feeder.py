@@ -62,6 +62,7 @@ while stepper_status:
 			sleep(.005) # Dictates how fast stepper motor will run
 			GPIO.output(STEP,GPIO.LOW) # Set coil winding to low
 			sleep(.005) # Dictates how fast stepper motor will run 
+		stepper_status = False
 	# Stop stepper motor
 	except KeyboardInterrupt:
 		stepper_status =False
