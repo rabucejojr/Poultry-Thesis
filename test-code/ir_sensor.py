@@ -21,7 +21,7 @@ try:
             print("No object detected")
 
         # Add a small delay to avoid spamming the console
-        time.sleep(0.1)
+        time.sleep(3)
 
 except KeyboardInterrupt:
     # Clean up GPIO on keyboard interrupt
