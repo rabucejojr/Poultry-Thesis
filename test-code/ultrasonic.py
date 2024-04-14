@@ -27,7 +27,9 @@ def distance():
 
     # Calculate distance in cm
     duration = end_time - start_time
-    distance_cm = (duration * 34300) / 2
+    # 34300 represents the speed of sound in centimeters per second
+    # dividing the total distance by 2 gives us the distance from the sensor to the object in centimeters
+    distance_cm = (duration * 34300) / 2 
     return distance_cm
 
 def count_eggs():
