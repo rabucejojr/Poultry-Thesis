@@ -3,7 +3,7 @@ import time
 
 # Set GPIO mode (BCM or BOARD)
 GPIO.setmode(GPIO.BCM)
-
+GPIO.setwarnings(False)
 # Set GPIO pins for trigger and echo
 TRIG_PIN = 5
 ECHO_PIN = 6
