@@ -65,7 +65,6 @@ while stepper_status:
 		stepper_status = False
 	# Stop stepper motor
 	except KeyboardInterrupt:
-		stepper_status =False
+		p.stop() #stop servo
+		GPIO.cleanup()
 
-p.stop() #stop servo
-GPIO.cleanup()
