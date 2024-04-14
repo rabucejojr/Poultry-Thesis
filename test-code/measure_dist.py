@@ -1,10 +1,8 @@
 from gpiozero import DistanceSensor
 from time import sleep
 
-sensor = DistanceSensor(5, 6)
-
-distance_cm = sensor.distance * 100
+sensor = DistanceSensor(5, 6) #GPIO5 and GPIO6
 
 while True:
-    print('Distance to nearest object is', distance_cm, 'cm')
+    print('Distance to nearest object is', sensor.distance, 'm')
     sleep(1)
