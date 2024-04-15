@@ -1,28 +1,29 @@
 import RPi.GPIO as GPIO
 import time
 
-# Set up GPIO using BCM numbering
-GPIO.setmode(GPIO.BCM)
-
-# Define the GPIO pin connected to the IR sensor
-IR_PIN = 17
-
-# Set up the GPIO pin as input
+# Set GPIO mode and pin for IR sensor
+GPIO.setmode(GPIO.BOARD)
+IR_PIN = 11
 GPIO.setup(IR_PIN, GPIO.IN)
+
+# Initialize variables
+egg_count = 0
+debounce_delay = 0.3  # Debounce delay in seconds
+last_detection_time = time.time()
 
 try:
     while True:
-        # Read the state of the IR sensor
-        ir_state = GPIO.input(IR_PIN)
+        # Check if IR sensor is triggered
+        if GPIO.input(IR_PIN) == GPIO.LOW:
+            # Perform debounce
+            if time.time() - last_detection_time > debounce_delay:
+                egg_count += 1
+                print("Egg detected! Total eggs counted:", egg_count)
+                last_detection_time = time.time()
 
-        if ir_state == True:
-            print("Object detected")
-        else:
-            print("No object detected")
+        # You can add additional logic here, such as saving the count to a file or database.
 
-        # Add a small delay to avoid spamming the console
-        time.sleep(3)
+        time.sleep(0.1)  # Sleep to reduce CPU usage
 
 except KeyboardInterrupt:
-    # Clean up GPIO on keyboard interrupt
-    GPIO.cleanup()
+    GPIO.cleanup()  # Clean up GPIO on CTRL+C exit
