@@ -14,7 +14,7 @@ last_detection_time = time.time()
 try:
     while True:
         # Check if IR sensor is triggered
-        if GPIO.input(IR_PIN) == GPIO.LOW:
+        if GPIO.input(IR_PIN) == GPIO.HIGH:
             # Perform debounce
             if time.time() - last_detection_time > debounce_delay:
                 egg_count += 1
