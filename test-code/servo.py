@@ -11,13 +11,13 @@ p.start(2.5)  # Initialization
 try:
     while True:
         p.ChangeDutyCycle(5)
-        time.sleep(0.5)
+        time.sleep(2)
         p.ChangeDutyCycle(7.5)
-        time.sleep(0.5)
+        time.sleep(2)
         p.ChangeDutyCycle(10)
-        time.sleep(0.5)
+        time.sleep(2)
         p.ChangeDutyCycle(12.5)
-        time.sleep(0.5)
+        time.sleep(2)
 
 except KeyboardInterrupt:
     p.stop()
