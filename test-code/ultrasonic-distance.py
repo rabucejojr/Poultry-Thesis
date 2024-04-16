@@ -1,4 +1,4 @@
 from gpiozero import DistanceSensor
-ultrasonic = DistanceSensor(echo=17, trigger=4)
+ultrasonic = DistanceSensor(echo=6, trigger=5)
 while True:
-    print(ultrasonic.distance)
+    print(ultrasonic.distance)   
