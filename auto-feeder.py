@@ -57,7 +57,7 @@ while stepper_status:
 		time is dictated by the stepper motor and controller. """
 		GPIO.output(DIR,CW) # counterclockwise direction
 		# Run for 200 steps. This will change based on how you set you controller
-		for x in range(200):
+		for x in range(1000):
 			GPIO.output(STEP,GPIO.HIGH) # Set one coil winding to high
 			sleep(.005) # Dictates how fast stepper motor will run
 			GPIO.output(STEP,GPIO.LOW) # Set coil winding to low
