@@ -59,10 +59,9 @@ while stepper_status:
 		# Run for 1000 steps. This will change based on how you set you controller
 		for x in range(1000):
 			GPIO.output(STEP,GPIO.HIGH) # Set one coil winding to high
-			sleep(0.0000001) # Dictates how fast stepper motor will run
+			sleep(.005) # Dictates how fast stepper motor will run
 			GPIO.output(STEP,GPIO.LOW) # Set coil winding to low
-			sleep(0.0000001) # Dictates how fast stepper motor will run 
-		# stepper_status = False
+			sleep(.005) # Dictates how fast stepper motor will run 
 	# Stop stepper motor
 	except KeyboardInterrupt:
 		p.stop() #stop servo
