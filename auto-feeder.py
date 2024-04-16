@@ -56,12 +56,12 @@ while stepper_status:
 		"""Change Direction: Changing direction requires time to switch. The
 		time is dictated by the stepper motor and controller. """
 		GPIO.output(DIR,CW) # counterclockwise direction
-		# Run for 200 steps. This will change based on how you set you controller
+		# Run for 1000 steps. This will change based on how you set you controller
 		for x in range(1000):
 			GPIO.output(STEP,GPIO.HIGH) # Set one coil winding to high
-			sleep(.005) # Dictates how fast stepper motor will run
-			GPIO.output(STEP,GPIO.LOW) # Set coil winding to low
-			sleep(.005) # Dictates how fast stepper motor will run 
+			sleep(10) # Dictates how fast stepper motor will run
+			# GPIO.output(STEP,GPIO.LOW) # Set coil winding to low
+			# sleep(10) # Dictates how fast stepper motor will run 
 		stepper_status = False
 	# Stop stepper motor
 	except KeyboardInterrupt:
