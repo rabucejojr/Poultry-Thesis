@@ -11,7 +11,7 @@ p.start(2.5)  # Initialization
 try:
     while True:
         p.ChangeDutyCycle(5)
-        time.sleep(2)
+        time.sleep(4)
         p.ChangeDutyCycle(12.5)
         time.sleep(2)
 
