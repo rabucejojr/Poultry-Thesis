@@ -14,6 +14,7 @@ try:
         p.ChangeDutyCycle(5)
         time.sleep(4) # 4 seconds delay after open
         p.ChangeDutyCycle(12.5)
+        time.sleep(4) # 4 seconds delay after open
     start = False  # set start status to false to break while loop
 
 except KeyboardInterrupt:
