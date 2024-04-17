@@ -3,7 +3,7 @@ from time import sleep
 
 pin1 = 17
 
-relay1 = OutputDevice(pin1,active_high=True, initial_value=False)
+relay1 = OutputDevice(pin1,active_high=True, initial_value=True)
 try:
     while True:
         relay1.on()
