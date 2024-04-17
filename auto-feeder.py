@@ -13,15 +13,15 @@ import RPi.GPIO as GPIO
 from time import sleep
 
 # Direction pin from controller
-DIR = 10
+DIR = 15
 # Step pin from controller
-STEP = 8
+STEP =14
 # 0/1 used to signify clockwise or counterclockwise.
 CW = 1
 CCW = 0
-servoPIN = 29 # pin sequence number 29 as per datasheet pinout
+servoPIN = 5 # pin sequence number 29 as per datasheet pinout
 # Setup pin layout on PI
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 # Establish Pins in software
@@ -61,8 +61,7 @@ while stepper_status:
 			GPIO.output(STEP,GPIO.HIGH) # Set one coil winding to high
 			sleep(.005) # Dictates how fast stepper motor will run
 			GPIO.output(STEP,GPIO.LOW) # Set coil winding to low
-			sleep(.005) # Dictates how fast stepper motor will run 
-		stepper_status = False
+			sleep(.005) # Dictates how fast stepper motor will run
 	# Stop stepper motor
 	except KeyboardInterrupt:
 		p.stop() #stop servo
