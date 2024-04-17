@@ -39,9 +39,8 @@ def angle_to_duty_cycle(angle):
 # Set the first direction you want it to spin
 GPIO.output(DIR, CW)
 
-stepper_status = True
 
-while stepper_status:
+while True:
 	try:
 		# SERVO
 		#open 0 degrees
