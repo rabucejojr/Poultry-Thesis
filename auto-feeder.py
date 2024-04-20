@@ -11,6 +11,9 @@
 
 import RPi.GPIO as GPIO
 from time import sleep
+import time
+
+time_end = time.time() + 60 * 2 # set 2 mins to break the while loop
 
 # Direction pin from controller
 DIR = 10
@@ -61,10 +64,10 @@ def stepper_motor():
 # Set the first direction you want it to spin
 GPIO.output(DIR, CW)
 
-while True:
+while time.time() < time_end:
     try:
-        stepper_motor()
-
+       servo(4) # servo function with  secs delay
+       stepper_motor()
     except KeyboardInterrupt:
         p.stop() #stop servo
         GPIO.cleanup()
