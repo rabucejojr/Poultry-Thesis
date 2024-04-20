@@ -36,33 +36,37 @@ p.start(0)  					# Initialization
 def angle_to_duty_cycle(angle):
     duty_cycle = (angle / 18) + 2.5
     return duty_cycle
- 
+
+def servo(delay):
+        # SERVO
+        #open 0 degrees
+        duty_cycle = angle_to_duty_cycle(0)
+        p.ChangeDutyCycle(duty_cycle)
+        sleep(delay)
+        #open 90 degrees
+        duty_cycle = angle_to_duty_cycle(90)
+        p.ChangeDutyCycle(duty_cycle)
+        sleep(delay)
+
+def stepper_motor():
+        #Starts stepper motor
+        GPIO.output(DIR,CW) # counterclockwise direction
+        # Run for 200 steps. This will change based on how you set you controller
+        for x in range(200):
+            GPIO.output(STEP,GPIO.HIGH) # Set one coil winding to high
+            sleep(0.0005) # Dictates how fast stepper motor will run
+            GPIO.output(STEP,GPIO.LOW) # Set coil winding to low
+            sleep(0.0005) # Dictates how fast stepper motor will run
+
 # Set the first direction you want it to spin
 GPIO.output(DIR, CW)
 
-
 while True:
-	try:
-		# SERVO
-		#open 0 degrees
-# 		duty_cycle = angle_to_duty_cycle(0)
-# 		p.ChangeDutyCycle(duty_cycle)
-# 		sleep(4)
-		#open 90 degrees
-# 		duty_cycle = angle_to_duty_cycle(90)
-# 		p.ChangeDutyCycle(duty_cycle)
-# 		sleep(4)
+    try:
+        stepper_motor()
 
-		"""Change Direction: Changing direction requires time to switch. The
-		time is dictated by the stepper motor and controller. """
-		GPIO.output(DIR,CW) # counterclockwise direction
-		# Run for 200 steps. This will change based on how you set you controller
-		for x in range(200):
-			GPIO.output(STEP,GPIO.HIGH) # Set one coil winding to high
-			sleep(.005) # Dictates how fast stepper motor will run
-			GPIO.output(STEP,GPIO.LOW) # Set coil winding to low
-			sleep(.005) # Dictates how fast stepper motor will run
-	except KeyboardInterrupt:
-		p.stop() #stop servo
-		GPIO.cleanup()
+    except KeyboardInterrupt:
+        p.stop() #stop servo
+        GPIO.cleanup()
+
 
