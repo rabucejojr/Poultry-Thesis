@@ -57,9 +57,9 @@ while True:
 		# Run for 200 steps. This will change based on how you set you controller
 		for x in range(200):
 			GPIO.output(STEP,GPIO.HIGH) # Set one coil winding to high
-			sleep(.005) # Dictates how fast stepper motor will run
+			sleep(.500) # Dictates how fast stepper motor will run
 			GPIO.output(STEP,GPIO.LOW) # Set coil winding to low
-			sleep(.005) # Dictates how fast stepper motor will run
+			sleep(.500) # Dictates how fast stepper motor will run
 	except KeyboardInterrupt:
 		p.stop() #stop servo
 		GPIO.cleanup()
