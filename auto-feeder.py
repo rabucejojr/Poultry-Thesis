@@ -45,13 +45,13 @@ while True:
 	try:
 		# SERVO
 		#open 0 degrees
-		duty_cycle = angle_to_duty_cycle(0)
-		p.ChangeDutyCycle(duty_cycle)
-		sleep(4)
+# 		duty_cycle = angle_to_duty_cycle(0)
+# 		p.ChangeDutyCycle(duty_cycle)
+# 		sleep(4)
 		#open 90 degrees
-		duty_cycle = angle_to_duty_cycle(90)
-		p.ChangeDutyCycle(duty_cycle)
-		sleep(4)
+# 		duty_cycle = angle_to_duty_cycle(90)
+# 		p.ChangeDutyCycle(duty_cycle)
+# 		sleep(4)
 
 		"""Change Direction: Changing direction requires time to switch. The
 		time is dictated by the stepper motor and controller. """
@@ -59,9 +59,9 @@ while True:
 		# Run for 200 steps. This will change based on how you set you controller
 		for x in range(200):
 			GPIO.output(STEP,GPIO.HIGH) # Set one coil winding to high
-			sleep(.500) # Dictates how fast stepper motor will run
+			sleep(.005) # Dictates how fast stepper motor will run
 			GPIO.output(STEP,GPIO.LOW) # Set coil winding to low
-			sleep(.500) # Dictates how fast stepper motor will run
+			sleep(.005) # Dictates how fast stepper motor will run
 	except KeyboardInterrupt:
 		p.stop() #stop servo
 		GPIO.cleanup()
