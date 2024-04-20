@@ -22,6 +22,8 @@ CCW = 0
 servoPIN = 5 # pin sequence number 29 as per datasheet pinout
 # Setup pin layout on PI
 GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
+
 
 # Establish Pins in software
 GPIO.setup(DIR, GPIO.OUT)
