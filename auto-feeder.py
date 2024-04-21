@@ -15,14 +15,14 @@ import time
 
 time_end = time.time() + 60 * 2 # set 2 mins to break the while loop
 
-# Direction pin from controller
-DIR = 10
-# Step pin from controller
-STEP =8
-# 0/1 used to signify clockwise or counterclockwise.
-CW = 1
-CCW = 0
+
+DIR = 10 # Direction pin from controller
+STEP =8 # Step pin from controller
+
+CW = 1 # 0/1 used to signify clockwise or counterclockwise.
+CCW = 0 # 0/1 used to signify clockwise or counterclockwise.
 servoPIN = 5 # pin sequence number 29 as per datasheet pinout
+
 # Setup pin layout on PI
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
