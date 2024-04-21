@@ -45,11 +45,11 @@ def servo():
         duty_cycle = angle_to_duty_cycle(0)
         p.ChangeDutyCycle(duty_cycle)
         stepper_motor()
-#         sleep(delay)
+#         sleep(1)
         #open 90 degrees
         duty_cycle = angle_to_duty_cycle(90)
         p.ChangeDutyCycle(duty_cycle)
-#         sleep(delay)
+#         sleep(1)
 
 def stepper_motor():
         #Starts stepper motor
