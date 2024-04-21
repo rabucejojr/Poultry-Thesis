@@ -13,8 +13,6 @@ import RPi.GPIO as GPIO
 from time import sleep
 import time
 
-time_end = time.time() + 60 * 2 # set 2 mins to break the while loop
-
 DIR = 10 # Direction pin from controller
 STEP =8 # Step pin from controller
 
@@ -25,7 +23,6 @@ servoPIN = 5 # pin sequence number 29 as per datasheet pinout
 # Setup pin layout on PI
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
-
 
 # Establish Pins in software
 GPIO.setup(DIR, GPIO.OUT)
