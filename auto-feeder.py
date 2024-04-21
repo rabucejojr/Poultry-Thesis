@@ -10,11 +10,9 @@
 # @reboot python3 /home/admin/Desktop/thesis_v1/piggery_hardware_controller.py
 
 import RPi.GPIO as GPIO
-from time import sleep
-import time
+from time import sleep,time
 
 time_end = time.time() + 60 * 2 # set 2 mins to break the while loop
-
 
 DIR = 10 # Direction pin from controller
 STEP =8 # Step pin from controller
