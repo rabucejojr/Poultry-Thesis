@@ -10,7 +10,8 @@
 # @reboot python3 /home/admin/Desktop/thesis_v1/piggery_hardware_controller.py
 
 import RPi.GPIO as GPIO
-from time import sleep,time
+from time import sleep
+import time
 
 time_end = time.time() + 60 * 2 # set 2 mins to break the while loop
 
@@ -38,16 +39,17 @@ def angle_to_duty_cycle(angle):
     duty_cycle = (angle / 18) + 2.5
     return duty_cycle
 
-def servo(delay):
+def servo():
         # SERVO
         #open 0 degrees
         duty_cycle = angle_to_duty_cycle(0)
         p.ChangeDutyCycle(duty_cycle)
-        sleep(delay)
+        stepper_motor()
+#         sleep(delay)
         #open 90 degrees
         duty_cycle = angle_to_duty_cycle(90)
         p.ChangeDutyCycle(duty_cycle)
-        sleep(delay)
+#         sleep(delay)
 
 def stepper_motor():
         #Starts stepper motor
@@ -62,10 +64,10 @@ def stepper_motor():
 # Set the first direction you want it to spin
 GPIO.output(DIR, CW)
 
-while time.time() < time_end:
+while True:
     try:
-       servo(4) # servo function with  secs delay
-       stepper_motor()
+       servo() # servo function with  secs delay
+#        stepper_motor()
     except KeyboardInterrupt:
         p.stop() #stop servo
         GPIO.cleanup()
