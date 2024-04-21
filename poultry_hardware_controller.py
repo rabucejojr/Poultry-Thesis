@@ -102,7 +102,7 @@ def main():
             #check temperature and automate relay with fan connected
             if temperature >= 32: #if temperature exceeds 32 degrees, this code executes
                 fanRelay(5)
-                foodValve(90,2,2) # opens 90 degrees, opens 2 secs, closes after 2 secs
+                # foodValve(90,2,2) # opens 90 degrees, opens 2 secs, closes after 2 secs
             sleep(300)  # Reread after 5 minutes, 60 secs. x 5 mins.
             # Other IoT code goes here ..
             # if sensor reading are above set threshhold
